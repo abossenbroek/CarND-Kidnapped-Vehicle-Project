@@ -56,11 +56,11 @@ int main()
 
       auto s = hasData(std::string(data));
       if (s != "") {
-      	
-      	
+
+
         auto j = json::parse(s);
         std::string event = j[0].get<std::string>();
-        
+
         if (event == "telemetry") {
           // j[1] is the data JSON object
 
@@ -102,13 +102,12 @@ int main()
         	std::istream_iterator<float>(),
         	std::back_inserter(y_sense));
 
-        	for(int i = 0; i < x_sense.size(); i++)
-        	{
-        		LandmarkObs obs;
-        		obs.x = x_sense[i];
-				obs.y = y_sense[i];
-				noisy_observations.push_back(obs);
-        	}
+        for(int i = 0; i < x_sense.size(); i++) {
+          LandmarkObs obs;
+          obs.x = x_sense[i];
+          obs.y = y_sense[i];
+          noisy_observations.push_back(obs);
+        }
 
 		  // Update the weights and resample
 		  pf.updateWeights(sensor_range, sigma_landmark, noisy_observations, map);
@@ -143,7 +142,7 @@ int main()
           auto msg = "42[\"best_particle\"," + msgJson.dump() + "]";
           // std::cout << msg << std::endl;
           ws.send(msg.data(), msg.length(), uWS::OpCode::TEXT);
-	  
+
         }
       } else {
         std::string msg = "42[\"manual\",{}]";
