@@ -12,7 +12,7 @@
 #include "helper_functions.h"
 #include <random>
 
-#define NUM_PARTICLES 1000
+#define NUM_PARTICLES 200
 
 struct Particle {
 
