@@ -10,6 +10,9 @@
 #define PARTICLE_FILTER_H_
 
 #include "helper_functions.h"
+#include <random>
+
+#define NUM_PARTICLES 1000
 
 struct Particle {
 
@@ -30,6 +33,7 @@ class ParticleFilter {
 	// Number of particles to draw
 	int num_particles;
 
+	std::mt19937 *rng_gen;
 
 
 	// Flag, if filter is initialized
@@ -45,10 +49,14 @@ public:
 
 	// Constructor
 	// @param num_particles Number of particles
-	ParticleFilter() : num_particles(0), is_initialized(false) {}
+	ParticleFilter() : num_particles(0), is_initialized(false) {
+		rng_gen = new std::mt19937(42);
+	}
 
 	// Destructor
-	~ParticleFilter() {}
+	~ParticleFilter() {
+		delete rng_gen;
+	}
 
 	/**
 	 * init Initializes particle filter by initializing particles to Gaussian
