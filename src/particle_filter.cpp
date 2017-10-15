@@ -27,10 +27,10 @@ void ParticleFilter::init(double x, double y, double theta, double std[]) {
 
   double sample_x, sample_y, sample_psi;
 
-  num_particles = 200;
-  weights.resize(num_particles, 1.0f);
+  weights.resize(NUM_PARTICLES, 1.0f);
+  num_particles = NUM_PARTICLES;
 
-  for (unsigned i = 0; i < num_particles; i++) {
+  for (unsigned i = 0; i < NUM_PARTICLES; i++) {
     Particle p;
     p.x = dist_x(*rng_gen);
     p.y = dist_y(*rng_gen);
@@ -202,7 +202,7 @@ void ParticleFilter::resample() {
   std::discrete_distribution<int> d(weights.begin(), weights.end());
   std::vector<Particle> new_particles;
 
-  for (unsigned i = 0; i < num_particles; i++) {
+  for (unsigned i = 0; i < NUM_PARTICLES; i++) {
     auto ind = d(*rng_gen);
     new_particles.push_back(std::move(particles[ind]));
   }
